@@ -2,6 +2,8 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
+var password = require("./password");
+
 // Creating a connection to the database
 var connection = mysql.createConnection({
 	host: "127.0.0.1",
@@ -9,7 +11,7 @@ var connection = mysql.createConnection({
 
   	user: "root",
 
-  	password: "0live3932",
+  	password: password,
   	database: "bamazon"
 	})
 
@@ -68,22 +70,23 @@ var inquireProduct = function() {
 								}
 							// validate:... ends
 							}
-			// inquirer.prompt ends
-			// Displaying users' choice and running inquireQuantity function
+			// inquirer.prompt ends, and users' choice is displayed
 			}).then(function(answer){
+					// Running inquireQuantity function
 					inquireQuantity();
 			// .then(function... ends
 			})
 	// connection.query ends
-	// }) ***
+	// })
 		// Running quantity function inside of inquireProduct function
-		var products = ("SELECT * FROM products");
 		var inquireQuantity = function() {
-			inquirer.prompt({
+			connection.query("SELECT * FROM products", function(err,response){
+				inquirer.prompt({
 				name: "quantity",
 				type: "input",
-				message: "How many would you like to purchase?",
-// TA			// Ensuring the user enters a number
+				message: "How many would you like to purchase?"
+// Q: This is not working but works fine for the above function
+					// Ensuring the user enters a number
 					// validate: function(value) {
 					// 	if (isNAN (value) === false) {
 					// 		return true;
@@ -92,29 +95,22 @@ var inquireProduct = function() {
 					// 	}
 					// validate:... ends
 					// }
+// Q: It breaks here. The table is products; the column headings in SQL are item_id and stock_quantity. I used ' " based on an example, but not sure why...
 			// inquirer.prompt ends
 			}).then(function(answer){
-				// Retrieveing data of the item selected
-				var selectedItem;
-					for (var i = 0; i < response.length; i++) {
-						if (response(i).item_id === answer.choice) {
-							selectedItem = response[i];
-						}
-					}
-
-			// .then(function... ends
-			})
-			// Determining if the item is in stock
-			if (selectedItem.stock_quantity > parseInt(answer.quantity)) {
-				// Item is in stock
-				connection.query(
-					"UPDATE products SET stock_quantity = stock_quantity MINUS answer.quantity WHERE item_id = answer.id"
-				)
-				console.log("Your order is complete!")
-					else {
-						console.log("We're sorry, the product you've requested has " + stock_quantity + "available.")
-						inquireProduct();
-					}
+				if((response[inquireProduct.item_id].inquireQuantity.stock_quantity-answer.quantity)>0){
+					connection.query("UPDATE products SET stock_quantity= '"
+						+ (response[inquireProduct.item_id].inquireQuantity.stock_quantity-answer.quantity)
+						+ "' WHERE product_name = '" + product + " ' ", function(err, response){
+						console.log("Your order is complete!");
+					})
+				// connection.query ends
 				}
-			)
+			// then(function... ends
+			})
+			// inquireQuantity function ends
 		})
+		}
+		// inquireProduct function ends
+	})
+}

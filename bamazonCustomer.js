@@ -31,25 +31,28 @@ var start = function(){
 		type: "rawlist",
 		message: "Would you like to inquire about a BAMazon product or say good-bye for now?",
 		choices: ["INQUIRE", "EXIT"]
-	}).then(function(answer){
-		if(answer.inquireOrExit.toUpperCase()=="INQUIRE") {
+	}).then(function(answerChoice){
+		if(answerChoice.inquireOrExit.toUpperCase()=="INQUIRE") {
 			inquireProduct();
 		} else {
 			exitBAMazon();
 		}
 	})
 }
-
 // Running function if user chooses EXIT
 function exitBAMazon() {
 	console.log("Thank you. Come back soon!")
 }
-
 // Running query to display available products if user chooses INQUIRE
 var inquireProduct = function() {
-	connection.query("SELECT item_id, product_name, price FROM products", function(err,response){
+	connection.query("SELECT * FROM products", function(err,response){
 		console.log(response);
-			inquirer.prompt({
+		// todo: list only ids, names prices
+			// example: {
+				//console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
+			//}
+			inquirer.prompt(
+				[{
 				name: "choice",
 				type: "rawlist",
 					choices: function(value){
@@ -60,7 +63,7 @@ var inquireProduct = function() {
 						return choiceArray;
 					// choices:... ends
 					},
-						message: "Enter the ID number of the item you'd like to purchase.",
+				message: "Enter the ID number of the item you'd like to purchase.",
 							// Ensuring the user enters a number
 							validate: function(value) {
 								if (isNAN (value) === false) {
@@ -68,49 +71,29 @@ var inquireProduct = function() {
 								} else {
 									return false;
 								}
-							// validate:... ends
+								// validate:... ends
 							}
-			// inquirer.prompt ends, and users' choice is displayed
-			}).then(function(answer){
-					// Running inquireQuantity function
-					inquireQuantity();
-			// .then(function... ends
-			})
-	// connection.query ends
-	// })
-		// Running quantity function inside of inquireProduct function
-		var inquireQuantity = function() {
-			connection.query("SELECT * FROM products", function(err,response){
-				inquirer.prompt({
-				name: "quantity",
-				type: "input",
-				message: "How many would you like to purchase?"
-// Q: This is not working but works fine for the above function
-					// Ensuring the user enters a number
-					// validate: function(value) {
-					// 	if (isNAN (value) === false) {
-					// 		return true;
-					// 	} else {
-					// 		return false;
-					// 	}
-					// validate:... ends
-					// }
-// Q: It breaks here. The table is products; the column headings in SQL are item_id and stock_quantity. I used ' " based on an example, but not sure why...
-			// inquirer.prompt ends
-			}).then(function(answer){
-				if((response[inquireProduct.item_id].inquireQuantity.stock_quantity-answer.quantity)>0){
-					connection.query("UPDATE products SET stock_quantity= '"
-						+ (response[inquireProduct.item_id].inquireQuantity.stock_quantity-answer.quantity)
-						+ "' WHERE product_name = '" + product + " ' ", function(err, response){
-						console.log("Your order is complete!");
-					})
-				// connection.query ends
+				},
+				{
+					name: "quantity",
+					type: "input",
+					message: "How many would you like to purchase?"
+					//*TA*: Will the above "validate: function(value)..." work here to ensure user enters a number?
 				}
-			// then(function... ends
+		// Next steps
+		// -- Access the item in the db that matches the user's choice, and compare the quantity based on the item_id
+		// inquirer.prompt ends
+		]).then(function(answer){
+			connection.query("SELECT stock_quantity WHERE item_id = choice", function (err,response){
+				if (stock_quantity < answers.quantity){
+					console.log("We're sorry. The quantity you entered is not available.");
+				}
+				else {
+						console.log("Thank you for your order!");
+				}
+			// connection.query ends
 			})
-			// inquireQuantity function ends
+		// then(function... ends
 		})
-		}
-		// inquireProduct function ends
 	})
 }

@@ -83,16 +83,27 @@ var inquireProduct = function() {
 		// Next steps
 		// -- Access the item in the db that matches the user's choice, and compare the quantity based on the item_id
 		// inquirer.prompt ends
-		]).then(function(answer){
-			connection.query("SELECT stock_quantity WHERE item_id = choice", function (err,response){
-				if (stock_quantity < answers.quantity){
+	]).then(function(answers){
+			// connection.query("SELECT stock_quantity WHERE item_id = choice", function (err,response){
+				var userIdChoice = (answers.choice);
+				var userQuantityInput = (answers.quantity);
+				// var productMatch = findProduct(products, userIdChoice);
+
+				var productMatch = function findProduct(products, userIdChoice) {
+					for (var i = 0; i < products.length; i++) {
+						products[i];
+					}
+				}
+				// var remainingQuantity = productMatch.stock_quantity - userQuantityInput;
+
+					if (productMatch.stock_quantity < userQuantityInput){
 					console.log("We're sorry. The quantity you entered is not available.");
 				}
 				else {
 						console.log("Thank you for your order!");
 				}
 			// connection.query ends
-			})
+			// })
 		// then(function... ends
 		})
 	})

@@ -1,16 +1,14 @@
-// Requiring npm packages
+// Requiring npm packages, incl console.table in case used
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-
+var table = require("console.table");
 var password = require("./password");
 
 // Creating a connection to the database
 var connection = mysql.createConnection({
 	host: "127.0.0.1",
   	port: 3306,
-
   	user: "root",
-
   	password: password,
   	database: "bamazon"
 	})
@@ -46,7 +44,7 @@ function exitBAMazon() {
 // Running query to display available products if user chooses INQUIRE
 var inquireProduct = function() {
 	connection.query("SELECT * FROM products", function(err,response){
-		console.log(response);
+		console.table(response);
 		// todo: list only ids, names prices
 			// example: {
 				//console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
@@ -82,29 +80,29 @@ var inquireProduct = function() {
 				}
 		// Next steps
 		// -- Access the item in the db that matches the user's choice, and compare the quantity based on the item_id
-		// inquirer.prompt ends
-	]).then(function(answers){
-			// connection.query("SELECT stock_quantity WHERE item_id = choice", function (err,response){
-				var userIdChoice = (answers.choice);
-				var userQuantityInput = (answers.quantity);
-				// var productMatch = findProduct(products, userIdChoice);
-
-				var productMatch = function findProduct(products, userIdChoice) {
-					for (var i = 0; i < products.length; i++) {
-						products[i];
-					}
-				}
-				// var remainingQuantity = productMatch.stock_quantity - userQuantityInput;
-
-					if (productMatch.stock_quantity < userQuantityInput){
-					console.log("We're sorry. The quantity you entered is not available.");
+	// inquirer.prompt ends
+	]).then(function(answer){
+				var quantity = parseInt(quantity);
+				if (quantity > products.stock_quantity) {
+					console.log("/We're sorry. The quantity you entered is not available.")
 				}
 				else {
-						console.log("Thank you for your order!");
+					completePurchase(product,quantity);
 				}
-			// connection.query ends
-			// })
-		// then(function... ends
-		})
-	})
+			});
+
+
+			function completePurchase(product, quantity) {
+				connection.query(
+					"UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
+					[quantity, product.item.id],
+					function(err,response) {
+						// console.log("n/Thank you! Order submitted: " + quantity + " of " products.product_name + "'s");
+					}
+				);
+			}
+
+				// connection query ends
+})
+// function inquireProduct ends
 }

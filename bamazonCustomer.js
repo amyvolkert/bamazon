@@ -50,7 +50,7 @@ var inquireProduct = function() {
 			inquirer.prompt(
 				[{
 				name: "choice",
-				type: "rawlist",
+				type: "list",
 				choices: function(value){
 					var choiceArray = [];
 					for (var i=0; i < products.length; i++){
@@ -59,7 +59,7 @@ var inquireProduct = function() {
 					return choiceArray;
 				// choices:... ends
 				},
-				message: "Enter the ID number of the item you'd like to purchase.",
+				message: "Selected item:",
 							// Ensuring the user enters a number
 							validate: function(value) {
 								if (value === "" || !value) {
@@ -70,6 +70,7 @@ var inquireProduct = function() {
 								// validate:... ends
 							}
 				},
+
 				{
 					name: "quantity",
 					type: "input",
@@ -116,8 +117,7 @@ var inquireProduct = function() {
 					[quantity, product.item_id],
 					function(err, response) {
 						console.log(
-							"n/Thank you! Order submitted: " + quantity + " of " +
-							 product.product_name + "'s"
+							"Thank you! Your order has been submitted: " + quantity + " " + product.product_name + "(s)"
 						);
 					}
 				);

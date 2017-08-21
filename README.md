@@ -14,13 +14,13 @@ The user first receives a prompt to either inquire about a product or exit the s
 ![inquire or exit](images/inquire-exit.JPG)
 
 If the user chooses to exit, then the following is displayed:
-![exit](images/exit.jpg)
+![exit](images/exit.JPG)
 
 If the user chooses to inquire about a product, then a list of products is displayed. The user may scroll through the products using the up and down arrow keys.
-![inquire](images/inquire.jpg)
+![inquire](images/inquire.JPG)
 
 After the user selects a product, he is prompted to enter a desired quantity.
-![quantity](images/quantity.jpg)
+![quantity](images/quantity.JPG)
 
 If the MySQL database contains enough product of the chosen item, then the user's order is submitted.
-![order received](images/order-received.jpg)
+![order received](images/order-received.JPG)

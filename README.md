@@ -39,7 +39,7 @@ If the MySQL database does not contain enough product of the item chosen, then t
 
 The MySQL database is set up as follows. Note the stock_quantity of item id 6, Saddle Pad is 35.
 
-![database](images/database-all.JPG)
+![database](images/db_all.JPG)
 
 When a user chooses to purchase 2 Saddle Pads, the stock_quantity of the item updates to 33.
 

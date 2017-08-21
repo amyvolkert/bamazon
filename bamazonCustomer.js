@@ -90,7 +90,8 @@ var inquireProduct = function() {
 					nameOfTheProductWeWant);
 
 				if (answer.quantity > selectedProduct.stock_quantity) {
-					console.log("/We're sorry. The quantity you entered is not available.")
+					console.log("We're sorry. The quantity you entered is not available.")
+					start();
 				}
 				else {
 					completePurchase(selectedProduct, quantity);

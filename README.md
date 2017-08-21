@@ -11,7 +11,7 @@ The application utilizes Node, MySQL, and Inquirer.
 
 # Functionality
 The user first receives a prompt to either inquire about a product or exit the storefront.
-![inquire or exit](images/inquire-exit.JPG)
+![inquire or exit](images/Inquire-Exit.JPG)
 
 If the user chooses to exit, then the following is displayed:
 ![exit](images/exit.JPG)

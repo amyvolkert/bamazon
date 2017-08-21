@@ -1,7 +1,7 @@
 // Requiring npm packages, incl console.table in case used
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-var table = require("console.table");
+// var table = require("console.table");
 var password = require("./password");
 
 // Creating a connection to the database
@@ -17,10 +17,9 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
 	if (err) throw err;
 	// Checking if connection is successful
-	else
-		console.log("Welcome to BAMazon!");
+	console.log("Welcome to BAMazon!");
 	start();
-})
+});
 
 // Prompting user to choose between two options - INQUIRE or EXIT
 var start = function(){
@@ -43,8 +42,7 @@ function exitBAMazon() {
 }
 // Running query to display available products if user chooses INQUIRE
 var inquireProduct = function() {
-	connection.query("SELECT * FROM products", function(err,response){
-		console.table(response);
+	connection.query("SELECT * FROM products", function(err, products){
 		// todo: list only ids, names prices
 			// example: {
 				//console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
@@ -53,21 +51,21 @@ var inquireProduct = function() {
 				[{
 				name: "choice",
 				type: "rawlist",
-					choices: function(value){
-						var choiceArray = [];
-						for (var i=0; i < response.length; i++){
-							choiceArray.push(response[i].product_name);
-						}
-						return choiceArray;
-					// choices:... ends
-					},
+				choices: function(value){
+					var choiceArray = [];
+					for (var i=0; i < products.length; i++){
+						choiceArray.push(products[i].product_name);
+					}
+					return choiceArray;
+				// choices:... ends
+				},
 				message: "Enter the ID number of the item you'd like to purchase.",
 							// Ensuring the user enters a number
 							validate: function(value) {
-								if (isNAN (value) === false) {
-									return true;
-								} else {
+								if (value === "" || !value) {
 									return false;
+								} else {
+									return true;
 								}
 								// validate:... ends
 							}
@@ -82,22 +80,45 @@ var inquireProduct = function() {
 		// -- Access the item in the db that matches the user's choice, and compare the quantity based on the item_id
 	// inquirer.prompt ends
 	]).then(function(answer){
-				var quantity = parseInt(quantity);
-				if (quantity > products.stock_quantity) {
+				console.log("Answer: ", answer);
+	// xxx
+				// var quantity = parseInt(answer.quantity);
+				var quantity = parseInt(answer.quantity);
+				var nameOfTheProductWeWant = answer.choice;
+				var selectedProduct = findProductByName(products,
+					nameOfTheProductWeWant);
+
+				if (answer.quantity > selectedProduct.stock_quantity) {
 					console.log("/We're sorry. The quantity you entered is not available.")
 				}
 				else {
-					completePurchase(product,quantity);
+					completePurchase(selectedProduct, quantity);
 				}
 			});
+
+			function findProductByName(products, nameOfTheProductWeWant) {
+				for (var i = 0; i < products.length; i++) {
+					var currentProduct = products[i];
+					if (currentProduct.product_name === nameOfTheProductWeWant) {
+						return currentProduct;
+					}
+				}
+				throw new Error(
+					"Sorry, we couldn't find the product '" + nameOfTheProductWeWant +
+					"'."
+				);
+			}
 
 
 			function completePurchase(product, quantity) {
 				connection.query(
 					"UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
-					[quantity, product.item.id],
-					function(err,response) {
-						// console.log("n/Thank you! Order submitted: " + quantity + " of " products.product_name + "'s");
+					[quantity, product.item_id],
+					function(err, response) {
+						console.log(
+							"n/Thank you! Order submitted: " + quantity + " of " +
+							 product.product_name + "'s"
+						);
 					}
 				);
 			}

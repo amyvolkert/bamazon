@@ -1,6 +1,6 @@
-CREATE DATABASE bamazon;
+CREATE DATABASE bamazon_db;
 
-USE bamazon;
+USE bamazon_db;
 
 CREATE TABLE products (
 item_id INTEGER(10) AUTO_INCREMENT NOT NULL,
@@ -35,11 +35,3 @@ INSERT INTO products (product_name, department_name, price, stock_quantity) VALU
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ("Mosquito Repellent Bracelet", "Camping Gear", "15.98", "52");
 
 INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ("REI Cot", "Camping Gear", "49.95", "20");
-
-
-
-
-
-
-
-

@@ -3,12 +3,13 @@
 The purpose of this application is to allow the user to view, select, and purchase items from a storefront.
 
 
-## Dependencies
-- Node
-- MySQL
-- Inquirer
+## Prerequisites
+* Node
+* MySQL
+* Inquirer
 
-
+## Installing
+1.
 ## Functionality
 The user first receives a prompt to either inquire about a product or exit the storefront.
 
@@ -48,7 +49,3 @@ When a user chooses to purchase 2 Saddle Pads, the stock_quantity of the item up
 
 ## Authors
 Author: Amy Volkert
-
-Created:  2017 Aug 4
-
-Modified: 2017 Dec 11

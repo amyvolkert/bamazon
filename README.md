@@ -9,7 +9,12 @@ The purpose of this application is to allow the user to view, select, and purcha
 * Inquirer
 
 ## Installing
-1.
+1. From terminal,
+```
+test
+```
+
+
 ## Functionality
 The user first receives a prompt to either inquire about a product or exit the storefront.
 

@@ -1,16 +1,81 @@
-# Bamazon
-Author: Amy Volkert
-Created:  2017 Aug 4
-Modified: 2017 Dec 11
+# thepetfinder
 
-# Overview
+In this group project, we created an application that helps reunite lost pets with their owners. Users of The Lost Pet Finder may:
+
+* Enter information lost and found animals
+* View information on lost and found animals
+* Get answers to FAQ about finding a lost animals
+
+## Dependencies
+- react
+- react-dom
+
+## Developer Dependencies
+- babel-core
+- babel-loader
+- babel-preset-es2016
+- babel-preset-react
+- webpack
+- webpack-dev-server## Getting Started
+
+
+### Prerequisites
+
+
+
+### Installing
+
+
+## Running the tests
+
+Explain how to run the automated tests for this system
+
+### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+### And coding style tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Authors
+
+* **Mitchel Clow** - *User Interface, website content*
+* **Sally Bradfield** - *Initial database, testing*
+* **Amy Volkert** - *JavaScript, AWS*
+
+## Acknowledgments
+
+* Chase...
+* Inspiration
+* etc
+
+
+
+# Bamazon
 
 The purpose of this application is to allow the user to view, select, and purchase items from a storefront.
 
-The application utilizes Node, MySQL, and Inquirer.
 
-# Functionality
+## Dependencies
+- Node
+- MySQL
+- Inquirer
 
+
+## Functionality
 The user first receives a prompt to either inquire about a product or exit the storefront.
 
 ![inquire or exit](images/Inquire-Exit.JPG)
@@ -35,7 +100,7 @@ If the MySQL database does not contain enough product of the item chosen, then t
 
 ![order declined](images/order-declined.JPG)
 
-# Database
+### Database
 
 The MySQL database is set up as follows. Note the stock_quantity of item id 6, Saddle Pad is 35.
 
@@ -46,3 +111,8 @@ When a user chooses to purchase 2 Saddle Pads, the stock_quantity of the item up
 ![quantity update](images/db_quantity_update.JPG)
 
 ![database update](images/db_display_update.JPG)
+
+## Authors
+Author: Amy Volkert
+Created:  2017 Aug 4
+Modified: 2017 Dec 11

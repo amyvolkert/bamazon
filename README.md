@@ -11,20 +11,21 @@ The purpose of this application is to allow the user to view, select, and purcha
 For instructions on installing Node, MySQL, and Inquirer, email slingingicons@comcast.net.
 
 ## Running
-1. From terminal, type
+1. From terminal, type:
 ```
 mysql -u root
 ```
-2. From mysql>, type
+2. From mysql>, type:
 ```
 source bamazon_db.sql
 ```
-3. Type
+3. Type:
 ```
 exit
 ```
 4. From terminal, type the following and follow the instructions on the screen.
-``` node bamazoncustomer.js
+```
+node bamazoncustomer.js
 ```
 
 ## Functionality

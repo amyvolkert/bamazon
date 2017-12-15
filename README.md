@@ -2,18 +2,30 @@
 
 The purpose of this application is to allow the user to view, select, and purchase items from a storefront.
 
-
 ## Prerequisites
 * Node
 * MySQL
 * Inquirer
 
 ## Installing
-1. From terminal,
-```
-test
-```
+For instructions on installing Node, MySQL, and Inquirer, email slingingicons@comcast.net.
 
+## Running
+1. From terminal, type
+```
+mysql -u root
+```
+2. From mysql>, type
+```
+source bamazon_db.sql
+```
+3. Type
+```
+exit
+```
+4. From terminal, type the following and follow the instructions on the screen.
+``` node bamazoncustomer.js
+```
 
 ## Functionality
 The user first receives a prompt to either inquire about a product or exit the storefront.

@@ -8,7 +8,7 @@ The purpose of this application is to allow the user to view, select, and purcha
 * Inquirer
 
 ## Installing
-For instructions on installing Node, MySQL, and Inquirer, email slingingicons@comcast.net.
+For instructions on downloading the application or installing Node, MySQL, and Inquirer, email slingingicons@comcast.net.
 
 ## Running
 1. From terminal, type:

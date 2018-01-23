@@ -66,4 +66,5 @@ When a user chooses to purchase 2 Saddle Pads, the stock_quantity of the item up
 ![database update](images/db_display_update.JPG)
 
 ## Authors
+
 Author: Amy Volkert
